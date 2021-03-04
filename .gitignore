@@ -1,0 +1,17 @@
+
+*.v2
+.vs/Calculator/v16/.suo
+*.testlog
+*.manifest
+*.json
+*.dll
+*.pdb
+*.exe
+*.tmp
+*.props
+*.targets
+*.cache
+*.CopyComplete
+*.txt
+*.user
+ECS Legacy Solution/.vs/Legacy solution/v16/.suo
