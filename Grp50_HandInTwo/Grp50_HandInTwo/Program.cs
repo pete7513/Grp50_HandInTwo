@@ -43,5 +43,3 @@ class Program
             } while (!finish);
         }
     }
-
-}
