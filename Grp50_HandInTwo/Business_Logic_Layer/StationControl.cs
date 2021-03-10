@@ -24,8 +24,14 @@ namespace Ladeskab
         private int _oldId;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
+        private IDoor _door;
 
         // Her mangler constructor
+        public StationControl()
+        {
+            _door = new door();
+            _charger = new UsbChargerSimulator();
+        }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
