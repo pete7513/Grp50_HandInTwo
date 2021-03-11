@@ -9,6 +9,10 @@ namespace Ladeskab
         void ReadRFID();
         void RemovePhone();
         void WrongID();
+
+        void UnlockWithID();
+
+        void NoConnection();
     }
 
     public class Display: IDisplay
@@ -31,6 +35,17 @@ namespace Ladeskab
         public void WrongID()
         {
             Console.WriteLine("Forkert RFID tag");
+        }
+
+        public void UnlockWithID()
+        {
+
+            Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+        }
+
+        public void NoConnection()
+        {
+            Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
         }
     }
 

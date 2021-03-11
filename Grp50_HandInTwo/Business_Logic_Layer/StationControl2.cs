@@ -8,7 +8,7 @@ using UsbSimulator;
 
 namespace Ladeskab
 {
-    public class StationControl
+    public class StationControl2
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
         private enum LadeskabState
@@ -27,7 +27,7 @@ namespace Ladeskab
         private IDoor _door;
 
         // Her mangler constructor
-        public StationControl()
+        public StationControl2()
         {
             _door = new door();
             _charger = new UsbChargerSimulator();
