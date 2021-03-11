@@ -2,6 +2,8 @@
 {
     private bool statebool;
     private bool doorLocked;
+
+
     public void OnDoorOpen()
     {
         statebool = true;
