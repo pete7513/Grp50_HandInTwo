@@ -21,7 +21,27 @@ namespace UsbSimulator
 
         // Start charging
         void StartCharge();
+
         // Stop charging
         void StopCharge();
+    }
+
+    public class UsbCharger : IUsbCharger
+    {
+       public event EventHandler<CurrentEventArgs> CurrentValueEvent;
+
+       public double CurrentValue { get; }
+
+       public bool Connected { get; }
+
+       public void StartCharge()
+       {
+          throw new NotImplementedException();
+       }
+
+       public void StopCharge()
+       {
+          throw new NotImplementedException();
+       }
     }
 }
