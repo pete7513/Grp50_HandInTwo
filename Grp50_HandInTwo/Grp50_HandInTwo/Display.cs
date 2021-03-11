@@ -3,8 +3,7 @@ using System;
 
 namespace Ladeskab
 {
-
-    public interface IDisplay
+   public interface IDisplay
     {
         void ConnectPhone();
         void ReadRFID();

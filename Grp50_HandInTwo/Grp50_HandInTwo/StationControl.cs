@@ -21,6 +21,7 @@ namespace Ladeskab
         // Her mangler flere member variable
         private LadeskabState _state;
         private IUsbCharger _charger;
+        private IChargeControl _chargeControl;
         private IReader _reader;
         private int _oldId;
 
@@ -31,18 +32,17 @@ namespace Ladeskab
 
         // Her mangler constructor
 
-        public StationControl(IDoor door, IDisplay display, IReader reader)
+        public StationControl(IDoor door, IDisplay display, IReader reader, IChargeControl chargeControl)
         {
             _door = door;
             _display = display;
             _door.doorStatusEventHandler += _door_doorStatusEventHandler;
-            _charger = new UsbChargerSimulator();
+
             _reader = reader;
             _reader.IDLoadedEvent += _reader_IDLoadedEvent;
+
+            _chargeControl = chargeControl;
         }
-
-        
-
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
@@ -54,7 +54,9 @@ namespace Ladeskab
                     if (_charger.Connected)
                     {
                         _door.LockDoor();
+
                         _charger.StartCharge();
+
                         _oldId = id;
                         using (var writer = File.AppendText(logFile))
                         {
@@ -99,7 +101,6 @@ namespace Ladeskab
         }
 
         // Her mangler de andre trigger handlere
-
         private void _door_doorStatusEventHandler(object sender, CurrentDoorStatusEventArgs e)
         {
             switch (e.doorStatus)
@@ -112,10 +113,14 @@ namespace Ladeskab
                     break;
             }
         }
+
+
         private void _reader_IDLoadedEvent(object sender, RfidIDEventArgs e)
         {
             e.RFIDID = _oldId;
             RfidDetected(_oldId);
         }
     }
+
+
 }
