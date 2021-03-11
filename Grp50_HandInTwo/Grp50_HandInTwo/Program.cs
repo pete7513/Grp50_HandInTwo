@@ -1,10 +1,18 @@
 ﻿using System;
-class Program
+
+namespace Ladeskab
+{
+    class Program
     {
         static void Main(string[] args)
         {
+            // Assemble your system here from all the classes
 
-				// Assemble your system here from all the classes
+            
+            IDoor door = new Door();
+            IDisplay Display = new Display();
+            IReader RFID = new rfidReader();
+            StationControl stationControl = new StationControl(door,Display, RFID);
 
 
 
@@ -35,7 +43,7 @@ class Program
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        rfidReader.OnRfidRead(id);
+                        rfidReader.RfidRead(id);
                         break;
 
 
@@ -46,3 +54,4 @@ class Program
             } while (!finish);
         }
     }
+}

@@ -1,12 +1,34 @@
-﻿public class rfidReader : IReader
+﻿using System;
+
+namespace Ladeskab
 {
-    public void OnRfidRead(int id)
+
+    public class rfidReader : IReader
     {
+        public event EventHandler<RfidIDEventArgs> IDLoadedEvent;
 
+
+        public void RfidRead(int loadedID)
+        {
+            IDLoaded(new RfidIDEventArgs {RFIDID = loadedID});
+        }
+
+        protected virtual void IDLoaded(RfidIDEventArgs e)
+        {
+            IDLoadedEvent?.Invoke(this, e);
+        }
     }
-}
 
-public interface IReader
-{
-    public void OnRfidRead(int id);
+
+    public class RfidIDEventArgs : EventArgs
+    {
+        // Rfid ID
+        public int RFIDID { set; get; }
+    }
+
+    public interface IReader
+    {
+        public event EventHandler<RfidIDEventArgs> IDLoadedEvent;
+        public void RfidRead(int id);
+    }
 }
