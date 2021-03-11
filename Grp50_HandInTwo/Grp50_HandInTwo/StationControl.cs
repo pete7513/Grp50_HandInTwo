@@ -29,7 +29,7 @@ namespace Ladeskab
         // Her mangler constructor
         public StationControl()
         {
-            _door = new door();
+            _door = new Door();
             _charger = new UsbChargerSimulator();
         }
 
