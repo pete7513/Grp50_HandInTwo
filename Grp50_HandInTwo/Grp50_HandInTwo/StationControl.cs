@@ -55,7 +55,8 @@ namespace Ladeskab
                     {
                         _door.LockDoor();
 
-                        _charger.StartCharge();
+                        //_charger.StartCharge();
+                        _chargeControl.StartCharge();
 
                         _oldId = id;
                         using (var writer = File.AppendText(logFile))
@@ -81,7 +82,9 @@ namespace Ladeskab
                     // Check for correct ID
                     if (id == _oldId)
                     {
-                        _charger.StopCharge();
+                        //_charger.StopCharge();
+                        _chargeControl.StartCharge();
+
                         _door.UnlockDoor();
                         using (var writer = File.AppendText(logFile))
                         {

@@ -16,7 +16,7 @@ namespace Ladeskab
 
         public double CurrentValue { get; private set; }
 
-        public bool Connected { get; private set; }
+        public bool Connected { get; set; }
 
         private bool _overload;
         private bool _charging;
@@ -59,57 +59,66 @@ namespace Ladeskab
                 OnNewCurrent();
             }
         }
-
-        public void SimulateConnected(bool connected)
-        {
-            Connected = connected;
-        }
-
+        
         public void SimulateOverload(bool overload)
         {
             _overload = overload;
         }
 
-        //public void StartCharge()
-        //{
-        //    // Ignore if already charging
-        //    if (!_charging)
-        //    {
-        //        if (Connected && !_overload)
-        //        {
-        //            CurrentValue = 500;
-        //        }
-        //        else if (Connected && _overload)
-        //        {
-        //            CurrentValue = OverloadCurrent;
-        //        }
-        //        else if (!Connected)
-        //        {
-        //            CurrentValue = 0.0;
-        //        }
+        public void StartCharge()
+        {
+            // Ignore if already charging
+            if (!_charging)
+            {
+                if (Connected && !_overload)
+                {
+                    CurrentValue = 500;
+                }
+                else if (Connected && _overload)
+                {
+                    CurrentValue = OverloadCurrent;
+                }
+                else if (!Connected)
+                {
+                    CurrentValue = 0.0;
+                }
 
-        //        OnNewCurrent();
-        //        _ticksSinceStart = 0;
+                OnNewCurrent();
+                _ticksSinceStart = 0;
 
-        //        _charging = true;
+                _charging = true;
 
-        //        _timer.Start();
-        //    }
-        //}
+                _timer.Start();
+            }
+        }
 
-        //public void StopCharge()
-        //{
-        //    _timer.Stop();
+        public void StopCharge()
+        {
+            _timer.Stop();
 
-        //    CurrentValue = 0.0;
-        //    OnNewCurrent();
+            CurrentValue = 0.0;
+            OnNewCurrent();
 
-        //    _charging = false;
-        //}
+            _charging = false;
+        }
 
         private void OnNewCurrent()
         {
             CurrentValueEvent?.Invoke(this, new CurrentEventArgs() {Current = this.CurrentValue});
         }
+
+        public event EventHandler<CurrentConnectedStatusEventArgs> USBconnectedStatusEvent;
+
+        public void SimulateConnected(bool connected)
+        {
+           Connected = connected;
+           USBconnectedStatusEvent?.Invoke(this, new CurrentConnectedStatusEventArgs(){IsConnected = connected});
+        }
+    }
+
+    public class CurrentConnectedStatusEventArgs : EventArgs
+    {
+       // Status bool for USB-Charging cable
+       public bool IsConnected { set; get; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Ladeskab
+﻿using System;
+
+namespace Ladeskab
 {
    public interface IChargeControl
    {
@@ -15,43 +17,22 @@
       {
          _display = display;
          _usbCharger = usbCharger;
+         _usbCharger.CurrentValueEvent += _usbCharger_CurrentValueEvent;
+      }
+
+      private void _usbCharger_CurrentValueEvent(object sender, CurrentEventArgs e)
+      {
+         Console.WriteLine("Current Power Value: " + e.Current);
       }
 
       public void StartCharge()
       {
-         // Ignore if already charging
-         if (!_charging)
-         {
-            if (Connected && !_overload)
-            {
-               CurrentValue = 500;
-            }
-            else if (Connected && _overload)
-            {
-               CurrentValue = OverloadCurrent;
-            }
-            else if (!Connected)
-            {
-               CurrentValue = 0.0;
-            }
-
-            OnNewCurrent();
-            _ticksSinceStart = 0;
-
-            _charging = true;
-
-            _timer.Start();
-         }
+         _usbCharger.StartCharge();
       }
 
       public void StopCharge()
       {
-         _timer.Stop();
-
-         CurrentValue = 0.0;
-         OnNewCurrent();
-
-         _charging = false;
+         _usbCharger.StopCharge();
       }
    }
 }

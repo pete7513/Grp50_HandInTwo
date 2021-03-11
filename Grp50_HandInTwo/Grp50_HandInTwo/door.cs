@@ -12,6 +12,7 @@ namespace Ladeskab
     {
         private bool statebool;
         private bool doorLocked;
+
         public event EventHandler<CurrentDoorStatusEventArgs> doorStatusEventHandler;
 
         public void OnDoorOpen()

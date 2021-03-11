@@ -33,7 +33,7 @@ namespace FriLegMedEvents
             _charger = new UsbChargerSimulator();
             _display = new Display();
 
-         _door.TempChangedEvent += _door_TempChangedEvent;
+         //_door.TempChangedEvent += _door_TempChangedEvent;
         }
 
 
@@ -92,10 +92,10 @@ namespace FriLegMedEvents
         }
 
 
-      private void _door_TempChangedEvent(object sender, DoorStatusChancedArgs e)
+      private void _door_TempChangedEvent(object sender) //DoorStatusChancedArgs e)
       {
-        if(e.State = false)
-           Display
+       // if(e.State = false)
+       //    Display
       }
 
 
