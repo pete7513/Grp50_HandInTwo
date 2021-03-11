@@ -70,42 +70,42 @@ namespace Ladeskab
             _overload = overload;
         }
 
-        public void StartCharge()
-        {
-            // Ignore if already charging
-            if (!_charging)
-            {
-                if (Connected && !_overload)
-                {
-                    CurrentValue = 500;
-                }
-                else if (Connected && _overload)
-                {
-                    CurrentValue = OverloadCurrent;
-                }
-                else if (!Connected)
-                {
-                    CurrentValue = 0.0;
-                }
+        //public void StartCharge()
+        //{
+        //    // Ignore if already charging
+        //    if (!_charging)
+        //    {
+        //        if (Connected && !_overload)
+        //        {
+        //            CurrentValue = 500;
+        //        }
+        //        else if (Connected && _overload)
+        //        {
+        //            CurrentValue = OverloadCurrent;
+        //        }
+        //        else if (!Connected)
+        //        {
+        //            CurrentValue = 0.0;
+        //        }
 
-                OnNewCurrent();
-                _ticksSinceStart = 0;
+        //        OnNewCurrent();
+        //        _ticksSinceStart = 0;
 
-                _charging = true;
+        //        _charging = true;
 
-                _timer.Start();
-            }
-        }
+        //        _timer.Start();
+        //    }
+        //}
 
-        public void StopCharge()
-        {
-            _timer.Stop();
+        //public void StopCharge()
+        //{
+        //    _timer.Stop();
 
-            CurrentValue = 0.0;
-            OnNewCurrent();
+        //    CurrentValue = 0.0;
+        //    OnNewCurrent();
 
-            _charging = false;
-        }
+        //    _charging = false;
+        //}
 
         private void OnNewCurrent()
         {

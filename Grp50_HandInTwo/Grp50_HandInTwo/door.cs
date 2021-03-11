@@ -45,6 +45,7 @@ namespace Ladeskab
         public void OnDoorClose();
         public void LockDoor();
         public void UnlockDoor();
+
         public event EventHandler<CurrentDoorStatusEventArgs> doorStatusEventHandler;
     }
 }
