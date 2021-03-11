@@ -1,32 +1,50 @@
-﻿public class door :IDoor
+﻿using System;
+
+namespace Ladeskab
 {
-    private bool statebool;
-    private bool doorLocked;
-    public void OnDoorOpen()
+    public class CurrentDoorStatusEventArgs : EventArgs
     {
-        statebool = true;
+        // Status bool for door
+        public bool doorStatus { set; get; }
     }
 
-    public void OnDoorClose()
+    public class Door : IDoor
     {
-        statebool = false;
+        private bool statebool;
+        private bool doorLocked;
+        public event EventHandler<CurrentDoorStatusEventArgs> doorStatusEventHandler;
+
+        public void OnDoorOpen()
+        {
+            statebool = true;
+            doorStatusEventHandler?.Invoke(this, new CurrentDoorStatusEventArgs {doorStatus = true});
+        }
+
+        public void OnDoorClose()
+        {
+            statebool = false;
+            doorStatusEventHandler?.Invoke(this, new CurrentDoorStatusEventArgs { doorStatus = false });
+        }
+
+        public void LockDoor()
+        {
+            doorLocked = true;
+        }
+
+        public void UnlockDoor()
+        {
+            doorLocked = false;
+        }
+
+        
     }
 
-    public void LockDoor()
+    public interface IDoor
     {
-        doorLocked = true;
+        public void OnDoorOpen();
+        public void OnDoorClose();
+        public void LockDoor();
+        public void UnlockDoor();
+        public event EventHandler<CurrentDoorStatusEventArgs> doorStatusEventHandler;
     }
-
-    public void UnlockDoor()
-    {
-        doorLocked = false;
-    }
-}
-
-public interface IDoor
-{
-    public void OnDoorOpen();
-    public void OnDoorClose();
-    public void LockDoor();
-    public void UnlockDoor();
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using UsbSimulator;
@@ -22,25 +21,24 @@ namespace Ladeskab
         // Her mangler flere member variable
         private LadeskabState _state;
         private IUsbCharger _charger;
-        private IReader _reader;
         private int _oldId;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
         private IDoor _door;
+        private IDisplay _display;
+
 
         // Her mangler constructor
-        public StationControl()
+
+        public StationControl(IDoor door, IDisplay display)
         {
-            _door = new Door();
+            _door = door;
+            _display = display;
+            _door.doorStatusEventHandler += _door_doorStatusEventHandler;
             _charger = new UsbChargerSimulator();
-            _reader = new rfidReader();
-            _reader.IDLoadedEvent += HandleIDLoadedEvent;
         }
-        private void HandleIDLoadedEvent(object sender, RfidIDEventArgs e)
-        {
-            _oldId = e.RFIDID;
-            RfidDetected(_oldId);
-        }
+
+
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
         {
@@ -96,5 +94,17 @@ namespace Ladeskab
         }
 
         // Her mangler de andre trigger handlere
+
+        private void _door_doorStatusEventHandler(object sender, CurrentDoorStatusEventArgs e)
+        {
+            switch (e.doorStatus)
+            {
+                case true:
+                    _display.ConnectPhone();
+                    break;
+                case false:
+                    _display.ReadRFID();
+            }
+        }
     }
 }
