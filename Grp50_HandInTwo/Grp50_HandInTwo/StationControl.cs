@@ -22,16 +22,17 @@ namespace Ladeskab
         private LadeskabState _state;
         private IUsbCharger _charger;
         private IReader _reader;
-        private int _oldId;
+        private ILog _log;
+        public int _oldId;
 
-        private string logFile = "logfile.txt"; // Navnet på systemets log-fil
+        
         private IDoor _door;
         private IDisplay _display;
 
 
         // Her mangler constructor
 
-        public StationControl(IDoor door, IDisplay display, IReader reader)
+        public StationControl(IDoor door, IDisplay display, IReader reader, ILog log)
         {
             _door = door;
             _display = display;
@@ -39,6 +40,8 @@ namespace Ladeskab
             _charger = new UsbChargerSimulator();
             _reader = reader;
             _reader.IDLoadedEvent += _reader_IDLoadedEvent;
+            _log = log;
+
         }
 
         
@@ -56,17 +59,14 @@ namespace Ladeskab
                         _door.LockDoor();
                         _charger.StartCharge();
                         _oldId = id;
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
-                        }
-
-                        Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+                       
+                        _log.LockwriteToFile(_oldId);
+                        _display.UnlockWithID();
                         _state = LadeskabState.Locked;
                     }
                     else
                     {
-                        Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
+                        _display.NoConnection();
                     }
 
                     break;
@@ -81,10 +81,8 @@ namespace Ladeskab
                     {
                         _charger.StopCharge();
                         _door.UnlockDoor();
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
-                        }
+                        _log.UnlockWriteToFile(_oldId);
+                       
 
                         _display.RemovePhone();
                         _state = LadeskabState.Available;
