@@ -21,6 +21,7 @@ namespace Ladeskab
         // Her mangler flere member variable
         private LadeskabState _state;
         private IUsbCharger _charger;
+        private IReader _reader;
         private int _oldId;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
@@ -30,13 +31,17 @@ namespace Ladeskab
 
         // Her mangler constructor
 
-        public StationControl(IDoor door, IDisplay display)
+        public StationControl(IDoor door, IDisplay display, IReader reader)
         {
             _door = door;
             _display = display;
             _door.doorStatusEventHandler += _door_doorStatusEventHandler;
             _charger = new UsbChargerSimulator();
+            _reader = reader;
+            _reader.IDLoadedEvent += _reader_IDLoadedEvent;
         }
+
+        
 
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
@@ -81,12 +86,12 @@ namespace Ladeskab
                             writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
                         }
 
-                        Console.WriteLine("Tag din telefon ud af skabet og luk døren");
+                        _display.RemovePhone();
                         _state = LadeskabState.Available;
                     }
                     else
                     {
-                        Console.WriteLine("Forkert RFID tag");
+                        _display.WrongID();
                     }
 
                     break;
@@ -104,7 +109,13 @@ namespace Ladeskab
                     break;
                 case false:
                     _display.ReadRFID();
+                    break;
             }
+        }
+        private void _reader_IDLoadedEvent(object sender, RfidIDEventArgs e)
+        {
+            e.RFIDID = _oldId;
+            RfidDetected(_oldId);
         }
     }
 }

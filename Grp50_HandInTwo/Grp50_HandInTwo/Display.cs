@@ -8,6 +8,8 @@ namespace Ladeskab
     {
         void ConnectPhone();
         void ReadRFID();
+        void RemovePhone();
+        void WrongID();
     }
 
     public class Display: IDisplay
@@ -20,6 +22,16 @@ namespace Ladeskab
         public void ReadRFID()
         {
             Console.WriteLine("Indlæs RFID");
+        }
+
+        public void RemovePhone()
+        {
+            Console.WriteLine("Tag din telefon ud af skabet og luk døren");
+        }
+
+        public void WrongID()
+        {
+            Console.WriteLine("Forkert RFID tag");
         }
     }
 
