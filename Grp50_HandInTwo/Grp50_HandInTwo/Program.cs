@@ -11,7 +11,8 @@ namespace Ladeskab
             
             IDoor door = new Door();
             IDisplay Display = new Display();
-            StationControl stationControl = new StationControl(door,Display);
+            IReader RFID = new rfidReader();
+            StationControl stationControl = new StationControl(door,Display, RFID);
 
 
 
@@ -30,11 +31,11 @@ namespace Ladeskab
                         break;
 
                     case 'O':
-                        Door.OnDoorOpen();
+                        door.OnDoorOpen();
                         break;
 
                     case 'C':
-                        Door.OnDoorClose();
+                        door.OnDoorClose();
                         break;
 
                     case 'R':
@@ -42,7 +43,7 @@ namespace Ladeskab
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        rfidReader.OnRfidRead(id);
+                        rfidReader.RfidRead(id);
                         break;
 
 
