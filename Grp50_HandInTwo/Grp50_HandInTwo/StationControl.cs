@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UsbSimulator;
 
 namespace Ladeskab
 {
@@ -19,12 +20,13 @@ namespace Ladeskab
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        private IUsbCharger _charger;
+        //private IUsbCharger _charger;
         private IChargeControl _chargeControl;
-        private IReader _reader;
         private ILog _log;
-        public int _oldId;
+        private IReader _reader;
+        private int _oldId;
 
+        //private string logFile = "logfile.txt"; // Navnet på systemets log-fil
         private IDoor _door;
         private IDisplay _display;
 
@@ -33,7 +35,6 @@ namespace Ladeskab
 
         public StationControl(IDoor door, IDisplay display, IReader reader, IChargeControl chargeControl, ILog log)
         {
-            _log = log;
             _door = door;
             _display = display;
             _door.doorStatusEventHandler += _door_doorStatusEventHandler;
@@ -42,6 +43,7 @@ namespace Ladeskab
             _reader.IDLoadedEvent += _reader_IDLoadedEvent;
 
             _chargeControl = chargeControl;
+            _log = log;
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
@@ -51,7 +53,7 @@ namespace Ladeskab
             {
                 case LadeskabState.Available:
                     // Check for ladeforbindelse
-                    if (_charger.Connected)
+                    if (_chargeControl.Connected)
                     {
                         _door.LockDoor();
 
@@ -59,14 +61,16 @@ namespace Ladeskab
                         _chargeControl.StartCharge();
 
                         _oldId = id;
+
                         _log.LockwriteToFile(id);
-                       
+          
                         _display.UnlockWithID();
+
                         _state = LadeskabState.Locked;
                     }
                     else
                     {
-                        _display.NoConnection();;
+                       _display.NoConnection();
                     }
 
                     break;
@@ -80,12 +84,14 @@ namespace Ladeskab
                     if (id == _oldId)
                     {
                         //_charger.StopCharge();
-                        _chargeControl.StartCharge();
+                        _chargeControl.StopCharge();
 
                         _door.UnlockDoor();
+
                         _log.UnlockWriteToFile(id);
-                        
+
                         _display.RemovePhone();
+
                         _state = LadeskabState.Available;
                     }
                     else

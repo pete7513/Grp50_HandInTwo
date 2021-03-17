@@ -6,12 +6,15 @@ namespace Ladeskab
    {
       void StartCharge();
       void StopCharge();
+      bool Connected { get; set; }
    }
 
    public class ChargeControl : IChargeControl
    {
       private readonly IDisplay _display;
       private readonly IUsbCharger _usbCharger;
+
+      public bool Connected { get; set; }
 
       public ChargeControl(IDisplay display, IUsbCharger usbCharger)
       {
@@ -22,7 +25,7 @@ namespace Ladeskab
 
       private void _usbCharger_CurrentValueEvent(object sender, CurrentEventArgs e)
       {
-         Console.WriteLine("Current Power Value: " + e.Current);
+         _display.CurrentPowerValue(e);
       }
 
       public void StartCharge()
@@ -34,5 +37,6 @@ namespace Ladeskab
       {
          _usbCharger.StopCharge();
       }
+
    }
 }
