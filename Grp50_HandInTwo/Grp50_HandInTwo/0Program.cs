@@ -51,6 +51,7 @@ namespace Ladeskab
                case 'C':
                case 'c':
                   door.OnDoorClose();
+                  DoorClosedWithPhoneConnected();
                   break;
 
                case 'R':
@@ -82,6 +83,7 @@ namespace Ladeskab
             case 't':
                USBcharger.Connected = true;
                chargeControl.Connected = true;
+               PhoneConnected();
                break;
 
             case 'F':
@@ -91,5 +93,51 @@ namespace Ladeskab
                break;
          }
       }
+
+      private static void DoorClosedWithPhoneConnected()
+      {
+          Display.PhoneCharging();
+
+          var key = Console.ReadKey(true);
+
+          switch (key.KeyChar)
+          {
+              case 'O':
+              case 'o':
+                  door.OnDoorOpen();
+                  break;
+
+              case 'R':
+              case 'r':
+                  Display.IndtastRFIDId();
+                  string idString = System.Console.ReadLine();
+
+                  int id = Convert.ToInt32(idString);
+                  RFID.RfidRead(id);
+                  break;
+          }
+      }
+
+      private static void PhoneConnected()
+      {
+          Display.PhoneConnectedMenu();
+
+          var key = Console.ReadKey(true);
+
+          switch (key.KeyChar)
+          {
+              case 'C':
+              case 'c':
+                  door.OnDoorClose();
+                  break;
+
+              case 'F':
+              case 'f':
+                  USBcharger.Connected = false;
+                  chargeControl.Connected = false;
+                  break;
+          }
+        }
+
    }
 }

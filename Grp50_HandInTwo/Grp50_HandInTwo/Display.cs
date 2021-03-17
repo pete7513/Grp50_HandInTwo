@@ -15,6 +15,10 @@ namespace Ladeskab
       void IndtastRFIDId();
       void PhoneOptions();
       void ShowMenu();
+
+      void PhoneCharging();
+
+      void PhoneConnectedMenu();
    }
 
    public class Display : IDisplay
@@ -78,6 +82,14 @@ namespace Ladeskab
 
       }
 
+      public void PhoneCharging()
+      {
+          Console.WriteLine(" [E]  Exit   \n" +
+                            " [O]  Open door \n" +
+                            " [R] RFID reader");
+          Console.WriteLine(" ----------------------------------- ");
+        }
+
       public void ShowMenu()
       {
          System.Console.WriteLine("Indtast E, O, C, R: ");
@@ -89,5 +101,12 @@ namespace Ladeskab
                            " [R]  RFID reader ");
          Console.WriteLine(" ----------------------------------- ");
       }
+
+      public void PhoneConnectedMenu()
+      {
+          Console.WriteLine(" [C]  Close door   \n" +
+                            " [F]  Frakoble telefon");
+          Console.WriteLine(" ----------------------------------- ");
+        }
    }
 }
