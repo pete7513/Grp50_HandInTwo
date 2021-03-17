@@ -9,9 +9,7 @@ namespace Ladeskab
       void ReadRFID();
       void RemovePhone();
       void WrongID();
-
       void UnlockWithID();
-
       void NoConnection();
       void CurrentPowerValue(CurrentEventArgs e);
       void IndtastRFIDId();
@@ -63,6 +61,7 @@ namespace Ladeskab
          {
             Console.Clear();
             ShowMenu();
+            count = 0; 
          }
       }
 
