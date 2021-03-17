@@ -23,6 +23,7 @@ namespace Ladeskab
         private IUsbCharger _charger;
         private IChargeControl _chargeControl;
         private IReader _reader;
+        private ILog _log;
         private int _oldId;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
@@ -32,8 +33,9 @@ namespace Ladeskab
 
         // Her mangler constructor
 
-        public StationControl(IDoor door, IDisplay display, IReader reader, IChargeControl chargeControl)
+        public StationControl(IDoor door, IDisplay display, IReader reader, IChargeControl chargeControl, ILog log)
         {
+            _log = log;
             _door = door;
             _display = display;
             _door.doorStatusEventHandler += _door_doorStatusEventHandler;
@@ -59,17 +61,14 @@ namespace Ladeskab
                         _chargeControl.StartCharge();
 
                         _oldId = id;
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
-                        }
-
-                        Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+                        _log.LockwriteToFile(id);
+                       
+                        _display.UnlockWithID();
                         _state = LadeskabState.Locked;
                     }
                     else
                     {
-                        Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
+                        _display.NoConnection();;
                     }
 
                     break;
@@ -86,11 +85,8 @@ namespace Ladeskab
                         _chargeControl.StopCharge();
 
                         _door.UnlockDoor();
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
-                        }
-
+                        _log.UnlockWriteToFile(id);
+                        
                         _display.RemovePhone();
                         _state = LadeskabState.Available;
                     }
