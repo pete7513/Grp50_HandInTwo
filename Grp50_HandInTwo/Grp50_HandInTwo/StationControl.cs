@@ -51,7 +51,7 @@ namespace Ladeskab
             {
                 case LadeskabState.Available:
                     // Check for ladeforbindelse
-                    if (_charger.Connected)
+                    if (_chargeControl.Connected)
                     {
                         _door.LockDoor();
 
@@ -83,7 +83,7 @@ namespace Ladeskab
                     if (id == _oldId)
                     {
                         //_charger.StopCharge();
-                        _chargeControl.StartCharge();
+                        _chargeControl.StopCharge();
 
                         _door.UnlockDoor();
                         using (var writer = File.AppendText(logFile))

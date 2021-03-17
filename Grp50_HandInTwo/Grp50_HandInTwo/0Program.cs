@@ -7,7 +7,7 @@ namespace Ladeskab
       private static IDoor door;
       private static IDisplay Display;
       private static IReader RFID;
-      private static IUsbCharger charger;
+      private static IUsbCharger USBcharger;
       private static IChargeControl chargeControl;
       private static StationControl stationControl;
 
@@ -17,8 +17,8 @@ namespace Ladeskab
          door = new Door();
          Display = new Display();
          RFID = new rfidReader(); 
-         charger = new UsbChargerSimulator();
-         chargeControl = new ChargeControl(Display, charger);
+         USBcharger = new UsbChargerSimulator();
+         chargeControl = new ChargeControl(Display, USBcharger);
          stationControl = new StationControl(door, Display, RFID, chargeControl);
 
 
@@ -26,14 +26,9 @@ namespace Ladeskab
          do
          {
             string input;
-            System.Console.WriteLine("Indtast E, O, C, R: ");
 
-
-            Console.WriteLine(" [E]  Exit");
-            Console.WriteLine(" [O]  Open door");
-            Console.WriteLine(" [C]  Close door   \n" +
-                              " [R]  RFID reader ");
-            Console.WriteLine(" ----------------------------------- ");
+            Display.ShowMenu(); 
+            
 
             var key = Console.ReadKey(true);
 
@@ -57,7 +52,7 @@ namespace Ladeskab
 
                case 'R':
                case 'r':
-                  System.Console.WriteLine("Indtast RFID id: ");
+                  Display.IndtastRFIDId();
                   string idString = System.Console.ReadLine();
 
                   int id = Convert.ToInt32(idString);
@@ -74,22 +69,22 @@ namespace Ladeskab
 
       private static void DoorOpen()
       {
-         Console.WriteLine(" [T]  Tilslut telefon   \n" +
-                           " [F]  Frakoble telefon");
-         Console.WriteLine(" ----------------------------------- ");
-
+         Display.PhoneOptions();
+        
          var key = Console.ReadKey(true);
 
          switch (key.KeyChar)
          {
             case 'T':
             case 't':
-               charger.Connected = true;
+               USBcharger.Connected = true;
+               chargeControl.Connected = true;
                break;
 
             case 'F':
             case 'f':
-               charger.Connected = false;
+               USBcharger.Connected = false;
+               chargeControl.Connected = false;
                break;
          }
       }
