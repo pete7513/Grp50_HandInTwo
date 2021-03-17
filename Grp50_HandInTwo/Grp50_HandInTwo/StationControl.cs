@@ -4,14 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UsbSimulator;
 
 namespace Ladeskab
 {
     public class StationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum LadeskabState
+        public enum LadeskabState
         {
             Available,
             Locked,
@@ -19,12 +18,12 @@ namespace Ladeskab
         };
 
         // Her mangler flere member variable
-        private LadeskabState _state;
+        public LadeskabState _state;
         //private IUsbCharger _charger;
         private IChargeControl _chargeControl;
         private ILog _log;
         private IReader _reader;
-        private int _oldId;
+        public int _oldId;
 
         //private string logFile = "logfile.txt"; // Navnet på systemets log-fil
         private IDoor _door;
@@ -83,11 +82,13 @@ namespace Ladeskab
                     // Check for correct ID
                     if (id == _oldId)
                     {
+                       _oldId = id;
+
                         //_charger.StopCharge();
                         _chargeControl.StopCharge();
 
                         _door.UnlockDoor();
-
+                        
                         _log.UnlockWriteToFile(id);
 
                         _display.RemovePhone();
@@ -120,8 +121,8 @@ namespace Ladeskab
 
         private void _reader_IDLoadedEvent(object sender, RfidIDEventArgs e)
         {
-            e.RFIDID = _oldId;
-            RfidDetected(_oldId);
+            //e.RFIDID = _oldId;
+            RfidDetected(e.RFIDID);
         }
     }
 
