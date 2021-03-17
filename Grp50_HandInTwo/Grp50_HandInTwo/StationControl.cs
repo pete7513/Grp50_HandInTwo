@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UsbSimulator;
 
 namespace Ladeskab
 {
@@ -24,9 +23,8 @@ namespace Ladeskab
         private IChargeControl _chargeControl;
         private IReader _reader;
         private ILog _log;
-        private int _oldId;
+        public int _oldId;
 
-        private string logFile = "logfile.txt"; // Navnet på systemets log-fil
         private IDoor _door;
         private IDisplay _display;
 

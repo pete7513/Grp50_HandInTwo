@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Ladeskab;
 using NSubstitute;
-using NuGet.Frameworks;
-using NUnit;
 using NUnit.Framework;
 
 namespace Test_Program_Charge_Locker
@@ -17,26 +15,30 @@ namespace Test_Program_Charge_Locker
         private IReader _reader;
         private IDisplay _display;
         private ILog _log;
+        private IChargeControl _chargeControl;
+        private IUsbCharger _usbCharger;
 
         private StationControl _uut;
 
         [SetUp]
         public void Setup()
         {
+            _usbCharger = new UsbChargerSimulator();
             _door = Substitute.For<IDoor>();
             _reader = Substitute.For<IReader>();
             _display = new Display();
             _log = new Log_File();
-            _uut = new StationControl(_door, _display, _reader, _log);
-
+            _chargeControl = new ChargeControl(_display,_usbCharger);
+            _uut = new StationControl(_door, _display, _reader,_chargeControl, _log);
         }
 
 
         [TestCase(12)]
+        [TestCase(500)]
+        [TestCase(-20)]
 
-        public void RFIDRead_NewID_OldIDIsNewID(int id )
+        public void RFIDRead_NewID_OldIDIsNewID(int id)
         {
-
             _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs {RFIDID = id});
             Assert.That(_uut._oldId,Is.EqualTo(id));
         }

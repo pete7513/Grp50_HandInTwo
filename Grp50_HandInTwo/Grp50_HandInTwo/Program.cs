@@ -9,6 +9,7 @@ namespace Ladeskab
       private static IReader RFID;
       private static IUsbCharger charger;
       private static IChargeControl chargeControl;
+      private static ILog log;
       private static StationControl stationControl;
 
       static void Main(string[] args)
@@ -19,7 +20,8 @@ namespace Ladeskab
          RFID = new rfidReader(); 
          charger = new UsbChargerSimulator();
          chargeControl = new ChargeControl(Display, charger);
-         stationControl = new StationControl(door, Display, RFID, chargeControl);
+         log = new Log_File();
+         stationControl = new StationControl(door, Display, RFID, chargeControl, log);
 
 
          bool finish = false;
