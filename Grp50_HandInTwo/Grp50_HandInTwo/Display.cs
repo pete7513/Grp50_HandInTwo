@@ -107,6 +107,11 @@ namespace Ladeskab
           Console.WriteLine(" [C]  Close door   \n" +
                             " [F]  Frakoble telefon");
           Console.WriteLine(" ----------------------------------- ");
-        }
+      }
+
+      public void NewBranchText()
+      {
+          Console.WriteLine("Jeg arbejder nu i en ny branch");
+      }
    }
 }
