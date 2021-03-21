@@ -5,26 +5,26 @@ namespace Ladeskab
     public class CurrentDoorStatusEventArgs : EventArgs
     {
         // Status bool for door
-        public bool doorStatus { set; get; }
+        public bool IsDoorOpen_Status { set; get; }
     }
 
     public class Door : IDoor
     {
-        private bool statebool;
-        private bool doorLocked;
+       public bool statebool;
+       public bool doorLocked = false;
 
         public event EventHandler<CurrentDoorStatusEventArgs> doorStatusEventHandler;
 
         public void OnDoorOpen()
         {
             statebool = true;
-            doorStatusEventHandler?.Invoke(this, new CurrentDoorStatusEventArgs {doorStatus = true});
+            doorStatusEventHandler?.Invoke(this, new CurrentDoorStatusEventArgs {IsDoorOpen_Status = true});
         }
 
         public void OnDoorClose()
         {
             statebool = false;
-            doorStatusEventHandler?.Invoke(this, new CurrentDoorStatusEventArgs { doorStatus = false });
+            doorStatusEventHandler?.Invoke(this, new CurrentDoorStatusEventArgs { IsDoorOpen_Status = false });
         }
 
         public void LockDoor()

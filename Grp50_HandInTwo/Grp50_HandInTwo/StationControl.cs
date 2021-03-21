@@ -107,7 +107,7 @@ namespace Ladeskab
         // Her mangler de andre trigger handlere
         private void _door_doorStatusEventHandler(object sender, CurrentDoorStatusEventArgs e)
         {
-            switch (e.doorStatus)
+            switch (e.IsDoorOpen_Status)
             {
                 case true:
                     _display.ConnectPhone();

@@ -5,15 +5,10 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grp50_HandInTwo", "Grp50_HandInTwo\Grp50_HandInTwo.csproj", "{F3F6929F-7088-4E9D-8315-0AAAFBC4EB5D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business_Logic_Layer", "Business_Logic_Layer\Business_Logic_Layer.csproj", "{0C5FBE2A-B9F5-4A77-A826-85C685585A26}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test_Program_Charge_Locker", "Test_Program_Charge_Locker\Test_Program_Charge_Locker.csproj", "{C389338B-1479-411D-BB39-2474751534F1}"
 	ProjectSection(ProjectDependencies) = postProject
-		{0C5FBE2A-B9F5-4A77-A826-85C685585A26} = {0C5FBE2A-B9F5-4A77-A826-85C685585A26}
 		{F3F6929F-7088-4E9D-8315-0AAAFBC4EB5D} = {F3F6929F-7088-4E9D-8315-0AAAFBC4EB5D}
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "0FriLegMedEvents", "FriLegMedEvents\0FriLegMedEvents.csproj", "{BBC4F5FF-B107-4C82-97F6-E93D92956DF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,18 +20,10 @@ Global
 		{F3F6929F-7088-4E9D-8315-0AAAFBC4EB5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3F6929F-7088-4E9D-8315-0AAAFBC4EB5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3F6929F-7088-4E9D-8315-0AAAFBC4EB5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0C5FBE2A-B9F5-4A77-A826-85C685585A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C5FBE2A-B9F5-4A77-A826-85C685585A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C5FBE2A-B9F5-4A77-A826-85C685585A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C5FBE2A-B9F5-4A77-A826-85C685585A26}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C389338B-1479-411D-BB39-2474751534F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C389338B-1479-411D-BB39-2474751534F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C389338B-1479-411D-BB39-2474751534F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C389338B-1479-411D-BB39-2474751534F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBC4F5FF-B107-4C82-97F6-E93D92956DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBC4F5FF-B107-4C82-97F6-E93D92956DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBC4F5FF-B107-4C82-97F6-E93D92956DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBC4F5FF-B107-4C82-97F6-E93D92956DF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

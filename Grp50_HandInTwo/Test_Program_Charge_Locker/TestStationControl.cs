@@ -40,6 +40,7 @@ namespace Test_Program_Charge_Locker
       [TestCase(646, false, 0)]
       [TestCase(100, true, 1)]
       public void RfidRead_DoorLockIsCall_(int id, bool ConnectedBool, int CalledTimes)
+      
       {
          //Arrange
          _uut._state = StationControl.LadeskabState.Available;
