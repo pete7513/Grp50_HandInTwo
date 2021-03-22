@@ -110,10 +110,9 @@ namespace Ladeskab
             switch (e.IsDoorOpen_Status)
             {
                 case true:
-                    _display.ConnectPhone();
                     break;
                 case false:
-                    _display.ReadRFID();
+                    //_display.ReadRFID();
                     break;
             }
         }
