@@ -123,6 +123,7 @@ namespace Ladeskab
         {
             //e.RFIDID = _oldId;
             RfidDetected(e.RFIDID);
+            
         }
     }
 

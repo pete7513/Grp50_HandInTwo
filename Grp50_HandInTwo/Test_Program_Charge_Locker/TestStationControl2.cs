@@ -33,13 +33,25 @@ namespace Test_Program_Charge_Locker
         }
 
 
-        [TestCase(12)]
-        [TestCase(500)]
-        [TestCase(-20)]
+        [TestCase(12,12)]
+        [TestCase(500,44)]
+        [TestCase(-20,34)]
 
-        public void RFIDRead_NewID_OldIDIsNewID(int id)
+        public void RFIDRead_NewID_OldIDIsNewID(int id, int oldid)
         {
-            _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs {RFIDID = id});
+
+
+            //arrange 
+            _uut._state = StationControl.LadeskabState.Locked;
+            _chargeControl.Connected = true;
+            _uut._oldId = oldid;
+
+
+            //act 
+            _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs { RFIDID = id });
+
+            //Assert
+
             Assert.That(_uut._oldId,Is.EqualTo(id));
         }
     }
