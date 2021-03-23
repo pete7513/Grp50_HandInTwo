@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Ladeskab.StationControl">
+    <Position X="4" Y="3" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Ladeskab.StationControl.LadeskabState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>StationControl.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAUBAAABAAAAAEAAAAAACAAAAAAAEAAIACAAAAAAAAA=</HashCode>
+      <FileName>StationControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ladeskab.rfidReader">
+    <Position X="1.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAQAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>RfidReader\rfidReader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Ladeskab.RfidIDEventArgs">
+    <Position X="6.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RfidReader\rfidReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ladeskab.Display">
+    <Position X="8.25" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAACAkBBAEIQQABAAAAAQgAAAAAAAABAAA=</HashCode>
+      <FileName>Display\Display.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.866" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
