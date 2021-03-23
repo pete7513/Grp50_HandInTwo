@@ -25,10 +25,4 @@ namespace Ladeskab
         // Rfid ID
         public int RFIDID { set; get; }
     }
-
-    public interface IReader
-    {
-        public event EventHandler<RfidIDEventArgs> IDLoadedEvent;
-        public void RfidRead(int id);
-    }
 }
