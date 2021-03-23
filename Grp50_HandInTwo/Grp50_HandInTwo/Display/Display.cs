@@ -15,7 +15,8 @@ namespace Ladeskab
       public void ReadRFID()
       {
          Console.WriteLine("Indlæs RFID");
-      }
+         Console.WriteLine(" ----------------------------------- ");
+        }
 
       public void RemovePhone()
       {
@@ -40,7 +41,7 @@ namespace Ladeskab
 
       public void CurrentPowerValue(CurrentEventArgs e)
       {
-         Console.WriteLine("Current Power Value: " + e.Current);
+         Console.WriteLine("Strøm niveauet er: " + e.Current);
          ++count;
 
          if (count == 10)
@@ -67,8 +68,8 @@ namespace Ladeskab
       public void PhoneCharging()
       {
           Console.WriteLine(" [E]  Exit   \n" +
-                            " [O]  Open door \n" +
-                            " [R] RFID reader");
+                            " [O]  Åben dør \n" +
+                            " [R] RFID læser");
           Console.WriteLine(" ----------------------------------- ");
         }
 
@@ -78,22 +79,17 @@ namespace Ladeskab
 
 
          Console.WriteLine(" [E]  Exit");
-         Console.WriteLine(" [O]  Open door");
-         Console.WriteLine(" [C]  Close door   \n" +
-                           " [R]  RFID reader ");
+         Console.WriteLine(" [O]  Åben dør");
+         Console.WriteLine(" [C]  Luk dør   \n" +
+                           " [R]  RFID læser ");
          Console.WriteLine(" ----------------------------------- ");
       }
 
       public void PhoneConnectedMenu()
       {
-          Console.WriteLine(" [C]  Close door   \n" +
+          Console.WriteLine(" [C]  Luk dør   \n" +
                             " [F]  Frakoble telefon");
           Console.WriteLine(" ----------------------------------- ");
-      }
-
-      public void NewBranchText()
-      {
-          Console.WriteLine("Jeg arbejder nu i en ny branch");
       }
    }
 }
