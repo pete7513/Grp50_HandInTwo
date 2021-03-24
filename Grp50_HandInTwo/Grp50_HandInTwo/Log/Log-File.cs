@@ -5,14 +5,7 @@ using System.Text;
 
 namespace Ladeskab
 {
-   public interface ILog
-   {
-      void LockwriteToFile(int id);
-
-      void UnlockWriteToFile(int id);
-   }
-
-   public class Log_File : ILog
+    public class Log_File : ILog
    {
       private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 

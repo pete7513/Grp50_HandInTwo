@@ -2,14 +2,7 @@
 
 namespace Ladeskab
 {
-   public interface IChargeControl
-   {
-      void StartCharge();
-      void StopCharge();
-      bool Connected { get; set; }
-   }
-
-   public class ChargeControl : IChargeControl
+    public class ChargeControl : IChargeControl
    {
       private readonly IDisplay _display;
       private readonly IUsbCharger _usbCharger;
