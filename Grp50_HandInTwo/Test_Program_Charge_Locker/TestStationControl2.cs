@@ -5,7 +5,7 @@ using Ladeskab;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Test_Program_Charge_Locker
+namespace UsbSimulator.Test
 {
 
     [TestFixture]
@@ -36,7 +36,6 @@ namespace Test_Program_Charge_Locker
         [TestCase(12)]
         [TestCase(500)]
         [TestCase(-20)]
-
         public void RFIDRead_NewID_OldIDIsNewID(int id)
         {
             _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs {RFIDID = id});
