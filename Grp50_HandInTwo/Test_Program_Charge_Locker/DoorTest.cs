@@ -43,15 +43,15 @@ namespace Test_Program_Charge_Locker
       }
 
       [Test]
-      public void lockDoor_DoorlockSetToFalse_True()
+      public void lockDoor_DoorlockSetToTrue_True()
       {
          //Arrange
 
          //Act
-         uut.UnlockDoor();
+         uut.LockDoor();
 
          //Assert
-         Assert.That(uut.doorLocked, Is.False);
+         Assert.That(uut.doorLocked, Is.True);
       }
 
       [Test]
