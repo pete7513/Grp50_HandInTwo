@@ -54,7 +54,7 @@ namespace Ladeskab
             case 'O':
             case 'o':
                door.OnDoorOpen();
-               DoorOpen();
+               DoorOpen(); //evt. en fake klasse her ift. test 
                break;
 
             case 'C':
