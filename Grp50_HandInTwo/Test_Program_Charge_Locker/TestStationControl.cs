@@ -72,7 +72,17 @@ namespace Test_Program_Charge_Locker
          _door.Received(CalledTimes).UnlockDoor();;
          //Assert.That(fakeDoor.IsActive_lockDoor, Is.True);
       }
-   }
+
+
+      public void NewId_is_equal_To_OldID(int id)
+      {
+           _reader.RfidRead(id);
+           
+
+
+      }
+    }
+
 
    public class FakeDoor: IDoor
    {
@@ -100,6 +110,11 @@ namespace Test_Program_Charge_Locker
       }
 
       public event EventHandler<CurrentDoorStatusEventArgs> doorStatusEventHandler;
-   }
+
+
+
+     
+
+    }
 }
 
