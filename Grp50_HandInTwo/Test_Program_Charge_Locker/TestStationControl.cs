@@ -72,6 +72,53 @@ namespace UsbSimulator.Test
          _door.Received(CalledTimes).UnlockDoor();;
          //Assert.That(fakeDoor.IsActive_lockDoor, Is.True);
       }
+<<<<<<< HEAD
+
+
+      public void NewId_is_equal_To_OldID(int id)
+      {
+           _reader.RfidRead(id);
+           
+
+
+      }
+    }
+
+
+   public class FakeDoor: IDoor
+   {
+      public bool IsActive_UnlockDoor = false;
+      public bool IsActive_lockDoor = false;
+
+      public void OnDoorOpen()
+      {
+         throw new NotImplementedException();
+      }
+
+      public void OnDoorClose()
+      {
+         throw new NotImplementedException();
+      }
+
+      public void LockDoor()
+      {
+         IsActive_lockDoor = true;
+      }
+
+      public void UnlockDoor()
+      {
+         IsActive_UnlockDoor = true;
+      }
+
+      public event EventHandler<CurrentDoorStatusEventArgs> doorStatusEventHandler;
+
+
+
+     
+
+    }
+=======
    }
+>>>>>>> 04d7c4fcc18624df3754374ad41dd7cd5efe7b6b
 }
 
