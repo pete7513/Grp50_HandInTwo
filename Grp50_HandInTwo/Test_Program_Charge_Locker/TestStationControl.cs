@@ -6,7 +6,7 @@ using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 
-namespace Test_Program_Charge_Locker
+namespace UsbSimulator.Test
 {
    [TestFixture]
    class TestStationControl2
@@ -72,6 +72,7 @@ namespace Test_Program_Charge_Locker
          _door.Received(CalledTimes).UnlockDoor();;
          //Assert.That(fakeDoor.IsActive_lockDoor, Is.True);
       }
+<<<<<<< HEAD
 
 
       public void NewId_is_equal_To_OldID(int id)
@@ -116,5 +117,8 @@ namespace Test_Program_Charge_Locker
      
 
     }
+=======
+   }
+>>>>>>> 04d7c4fcc18624df3754374ad41dd7cd5efe7b6b
 }
 
