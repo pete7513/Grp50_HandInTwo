@@ -22,17 +22,17 @@ namespace UsbSimulator.Test
       }
 
 
-      [Test]
-      public void RFIDRead_NewID_OldIDIsNewID()
-      {
-         //Arrange
-         ConsoleKeyInfo key = new ConsoleKeyInfo('O', ConsoleKey.O, false, false, false);
+      //[Test]
+      //public void RFIDRead_NewID_OldIDIsNewID()
+      //{
+      //   //Arrange
+      //   ConsoleKeyInfo key = new ConsoleKeyInfo('O', ConsoleKey.O, false, false, false);
 
-         //Act
-         hardwareSimulator.switchMethod(key);
+      //   //Act
+      //   hardwareSimulator.switchMethod(key);
 
-         //Assert
-         doorSub.Received(1).OnDoorOpen();
-      }
+      //   //Assert
+      //   doorSub.Received(1).OnDoorOpen();
+      //}
    }
 }

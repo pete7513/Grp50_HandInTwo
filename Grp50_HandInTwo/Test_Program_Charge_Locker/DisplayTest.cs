@@ -29,8 +29,5 @@ namespace Test_Program_Charge_Locker
             _chargeControl = new ChargeControl(_uut, _usbCharger);
             _stationControl = new StationControl(_door, _uut, _reader, _chargeControl, _log);
         }
-
-        [Test]
-        public void 
     }
 }

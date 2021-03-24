@@ -37,6 +37,8 @@ namespace Ladeskab
             doorLocked = false;
         }
 
+
+
         
     }
 }

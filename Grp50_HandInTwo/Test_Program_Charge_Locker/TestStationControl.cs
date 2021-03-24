@@ -35,17 +35,17 @@ namespace UsbSimulator.Test
          _uut = new StationControl(_door, _display, _reader, _chargeControl, _log);
       }
 
-      [TestCase(123,false,0)]
-      [TestCase(500,true,1)]
+      [TestCase(123, false, 0)]
+      [TestCase(500, true, 1)]
       [TestCase(646, false, 0)]
       [TestCase(100, true, 1)]
       public void RfidRead_DoorLockIsCall_(int id, bool ConnectedBool, int CalledTimes)
-      
+
       {
          //Arrange
          _uut._state = StationControl.LadeskabState.Available;
          _chargeControl.Connected = ConnectedBool;
-        
+
          //Act
          _reader.RfidRead(id);
 
@@ -56,8 +56,8 @@ namespace UsbSimulator.Test
 
       [TestCase(500, 499, true, 0)]
       [TestCase(123, 123, true, 1)]
-      [TestCase(646, 646,true, 1)]
-      [TestCase(100,199, true, 0)]
+      [TestCase(646, 646, true, 1)]
+      [TestCase(100, 199, true, 0)]
       public void RfidRead_DoorUnlockIsCall_(int id, int oldid, bool ConnectedBool, int CalledTimes)
       {
          //Arrange
@@ -69,56 +69,10 @@ namespace UsbSimulator.Test
          _reader.RfidRead(id);
 
          //Assert
-         _door.Received(CalledTimes).UnlockDoor();;
+         _door.Received(CalledTimes).UnlockDoor();
+         ;
          //Assert.That(fakeDoor.IsActive_lockDoor, Is.True);
       }
-<<<<<<< HEAD
-
-
-      public void NewId_is_equal_To_OldID(int id)
-      {
-           _reader.RfidRead(id);
-           
-
-
-      }
-    }
-
-
-   public class FakeDoor: IDoor
-   {
-      public bool IsActive_UnlockDoor = false;
-      public bool IsActive_lockDoor = false;
-
-      public void OnDoorOpen()
-      {
-         throw new NotImplementedException();
-      }
-
-      public void OnDoorClose()
-      {
-         throw new NotImplementedException();
-      }
-
-      public void LockDoor()
-      {
-         IsActive_lockDoor = true;
-      }
-
-      public void UnlockDoor()
-      {
-         IsActive_UnlockDoor = true;
-      }
-
-      public event EventHandler<CurrentDoorStatusEventArgs> doorStatusEventHandler;
-
-
-
-     
-
-    }
-=======
    }
->>>>>>> 04d7c4fcc18624df3754374ad41dd7cd5efe7b6b
 }
 
