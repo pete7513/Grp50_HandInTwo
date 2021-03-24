@@ -6,7 +6,7 @@ using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 
-namespace UsbSimulator.Test
+namespace Test_Program_Charge_Locker
 {
    [TestFixture]
    class TestStationControl2
@@ -32,6 +32,7 @@ namespace UsbSimulator.Test
          _display = new Display();
          _log = new Log_File();
          _chargeControl = new ChargeControl(_display, _usbCharger);
+
          _uut = new StationControl(_door, _display, _reader, _chargeControl, _log);
       }
 

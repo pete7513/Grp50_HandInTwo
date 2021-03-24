@@ -5,7 +5,7 @@ using Ladeskab;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace UsbSimulator.Test
+namespace Test_Program_Charge_Locker
 {
 
    [TestFixture]
