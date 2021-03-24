@@ -52,6 +52,7 @@ namespace Test_Program_Charge_Locker
 
          //Assert
          Assert.That(uut.doorLocked, Is.True);
+         //Assert.That(uut.doorLocked, Is.False);
       }
 
       [Test]
