@@ -6,7 +6,7 @@ using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 
-namespace Test_Program_Charge_Locker
+namespace UsbSimulator.Test
 {
    [TestFixture]
    class TestStationControl2
@@ -72,34 +72,6 @@ namespace Test_Program_Charge_Locker
          _door.Received(CalledTimes).UnlockDoor();;
          //Assert.That(fakeDoor.IsActive_lockDoor, Is.True);
       }
-   }
-
-   public class FakeDoor: IDoor
-   {
-      public bool IsActive_UnlockDoor = false;
-      public bool IsActive_lockDoor = false;
-
-      public void OnDoorOpen()
-      {
-         throw new NotImplementedException();
-      }
-
-      public void OnDoorClose()
-      {
-         throw new NotImplementedException();
-      }
-
-      public void LockDoor()
-      {
-         IsActive_lockDoor = true;
-      }
-
-      public void UnlockDoor()
-      {
-         IsActive_UnlockDoor = true;
-      }
-
-      public event EventHandler<CurrentDoorStatusEventArgs> doorStatusEventHandler;
    }
 }
 
