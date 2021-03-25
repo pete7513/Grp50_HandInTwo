@@ -90,6 +90,20 @@ namespace Ladeskab
                             " [F]  Frakoble telefon");
           Console.WriteLine(" ----------------------------------- ");
       }
-      
-    }
+
+      public void ChargeComplete()
+      {
+         Console.Write("Opladningen er fuldendt og ladningen kan derved stoppes:   ");
+      }
+
+      public void Charging()
+      {
+         Console.Write("Ladningen er igang:");
+      }
+
+      public void ChargingError()
+      {
+         Console.Write("!!!ERROR!!! Frakobel din telefon hurtigst:   ");
+      }
+   }
 }

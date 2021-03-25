@@ -16,5 +16,8 @@
         void PhoneCharging();
 
         void PhoneConnectedMenu();
+        void ChargeComplete();
+        void Charging();
+        void ChargingError();
     }
 }

@@ -23,8 +23,7 @@ namespace Test_Program_Charge_Locker
          display = Substitute.For<IDisplay>();
          usbCharger = Substitute.For<IUsbCharger>();
 
-
-         uut = new ChargeControl(display,usbCharger);
+         uut = new ChargeControl(display, usbCharger);
       }
 
       [Test]
