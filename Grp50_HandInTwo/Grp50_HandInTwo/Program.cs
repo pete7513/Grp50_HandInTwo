@@ -10,6 +10,7 @@
          hardwareSimulator = new HardwareSimulator();
 
          hardwareSimulator.StartProgram();
+
       }
    }
 }
