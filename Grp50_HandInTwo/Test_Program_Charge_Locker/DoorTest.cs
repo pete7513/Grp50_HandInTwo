@@ -51,8 +51,7 @@ namespace Test_Program_Charge_Locker
          uut.LockDoor();
 
          //Assert
-         //Assert.That(uut.doorLocked, Is.True);
-         Assert.That(uut.doorLocked, Is.False);
+         Assert.That(uut.doorLocked, Is.True);
       }
 
       [Test]
