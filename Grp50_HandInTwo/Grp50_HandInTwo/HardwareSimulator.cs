@@ -12,8 +12,7 @@ namespace Ladeskab
       public IChargeControl chargeControl;
       public StationControl stationControl;
 
-      private bool finish = false; 
-
+      private bool finish = false;
 
       public HardwareSimulator()
       {
