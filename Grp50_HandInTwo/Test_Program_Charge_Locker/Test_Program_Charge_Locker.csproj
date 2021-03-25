@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Grp50_HandInTwo\Grp50_HandInTwo.csproj" />
+    <ProjectReference Include="..\Library\Library.csproj" />
   </ItemGroup>
 
 </Project>

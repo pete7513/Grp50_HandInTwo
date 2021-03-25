@@ -44,7 +44,6 @@ namespace Test_Program_Charge_Locker
            _uut.Received(1).ConnectPhone();
         }
 
-
         [Test]
         public void ConnectPhone_DoorOpenStatusFalse_Called()
         {

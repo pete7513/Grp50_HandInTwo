@@ -23,13 +23,14 @@ namespace Ladeskab
 
       public void StartCharge()
       {
+         _usbCharger.Connected = Connected;
          _usbCharger.StartCharge();
       }
 
       public void StopCharge()
       {
+         _usbCharger.Connected = Connected;
          _usbCharger.StopCharge();
       }
-
    }
 }

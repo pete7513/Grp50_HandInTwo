@@ -54,7 +54,7 @@ namespace Ladeskab
             case 'O':
             case 'o':
                door.OnDoorOpen();
-               DoorOpen(); //evt. en fake klasse her ift. test 
+               DoorOpen();
                break;
 
             case 'C':
@@ -65,7 +65,7 @@ namespace Ladeskab
 
             case 'R':
             case 'r':
-               Display.IndtastRFIDId();
+               Display.EnterRFIDId();
                string idString = System.Console.ReadLine();
 
                int id = Convert.ToInt32(idString);
@@ -87,14 +87,14 @@ namespace Ladeskab
          {
             case 'T':
             case 't':
-               USBcharger.Connected = true;
+               //USBcharger.Connected = true;
                chargeControl.Connected = true;
                PhoneConnected();
                break;
 
             case 'F':
             case 'f':
-               USBcharger.Connected = false;
+               //USBcharger.Connected = false;
                chargeControl.Connected = false;
                break;
          }
@@ -115,7 +115,7 @@ namespace Ladeskab
 
             case 'R':
             case 'r':
-               Display.IndtastRFIDId();
+               Display.EnterRFIDId();
                string idString = System.Console.ReadLine();
 
                int id = Convert.ToInt32(idString);

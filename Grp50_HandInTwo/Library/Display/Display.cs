@@ -30,8 +30,7 @@ namespace Ladeskab
 
       public void UnlockWithID()
       {
-
-         Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+         Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.>S");
       }
 
       public void NoConnection()
@@ -52,7 +51,7 @@ namespace Ladeskab
          }
       }
 
-      public void IndtastRFIDId()
+      public void EnterRFIDId()
       {
          Console.WriteLine("Indtast RFID id: ");
       }

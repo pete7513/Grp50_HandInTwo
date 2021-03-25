@@ -9,7 +9,7 @@
         void UnlockWithID();
         void NoConnection();
         void CurrentPowerValue(CurrentEventArgs e);
-        void IndtastRFIDId();
+        void EnterRFIDId();
         void PhoneOptions();
         void ShowMenu();
 
