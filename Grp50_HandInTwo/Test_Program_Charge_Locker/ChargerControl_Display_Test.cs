@@ -92,23 +92,11 @@ namespace Test_Program_Charge_Locker
       }
    }
 
-   public class FakeUsbCharger : IUsbCharger
+   public class FakeUsbCharger
    {
       public event EventHandler<CurrentEventArgs> CurrentValueEvent;
       public double CurrentValue { get; set; }
-      public bool Connected { get; set; }
-
-
-      public void StartCharge()
-      {
-         throw new NotImplementedException();
-      }
-
-      public void StopCharge()
-      {
-         throw new NotImplementedException();
-      }
-
+      
       public void OnNewCurrent()
       {
          CurrentValueEvent?.Invoke(this, new CurrentEventArgs() { Current = this.CurrentValue });
