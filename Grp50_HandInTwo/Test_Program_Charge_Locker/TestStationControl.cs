@@ -11,7 +11,6 @@ namespace Test_Program_Charge_Locker
    [TestFixture]
    class TestStationControl2
    {
-
       //private FakeDoor fakeDoor;
       private IDoor _door;
       private IReader _reader;
@@ -27,7 +26,7 @@ namespace Test_Program_Charge_Locker
       {
          _usbCharger = Substitute.For<IUsbCharger>();
          _door = Substitute.For<IDoor>();
-         _reader = new rfidReader();
+         _reader = Substitute.For<IReader>();
          _display = Substitute.For<IDisplay>();
          _log = Substitute.For<ILog>();
 
@@ -42,14 +41,12 @@ namespace Test_Program_Charge_Locker
       [TestCase(646, false, 0)]
       [TestCase(100, true, 1)]
       public void RfidRead_DoorLockIsCall_(int id, bool ConnectedBool, int CalledTimes)
-
       {
          //Arrange
-         _uut._state = StationControl.LadeskabState.Available;
          _chargeControl.Connected = ConnectedBool;
 
          //Act
-         _reader.RfidRead(id);
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = id });
 
          //Assert
          _door.Received(CalledTimes).LockDoor();
@@ -62,12 +59,14 @@ namespace Test_Program_Charge_Locker
       public void RfidRead_DoorUnlockIsCall_(int id, int oldid, bool ConnectedBool, int CalledTimes)
       {
          //Arrange
-         _uut._state = StationControl.LadeskabState.Locked;
          _chargeControl.Connected = ConnectedBool;
-         _uut._oldId = oldid;
 
          //Act
-         _reader.RfidRead(id);
+         //First read and lock
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = oldid });
+
+         //Second read and open 
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = id });
 
          //Assert
          _door.Received(CalledTimes).UnlockDoor();
@@ -80,12 +79,10 @@ namespace Test_Program_Charge_Locker
       public void RfidDetected_IfIdDetectedAndLadeSkabAvaliableLogWiteToFileIsCalled_LogfileIsCalled(int id, bool ConnectedBool, int CalledTimes)
       {
          //Arrange
-         _uut._state = StationControl.LadeskabState.Available;
          _chargeControl.Connected = ConnectedBool;
-         //_uut._oldId = oldid;
 
          //Act
-         _reader.RfidRead(id);
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = id });
 
          //Assert
          _log.Received(CalledTimes).LockwriteToFile(id);
@@ -98,12 +95,10 @@ namespace Test_Program_Charge_Locker
       public void RfidDetected_IfIdDetectedAndLadeSkabAvaliableDisplayUnklockWothID_DisplayIsCalled(int id, bool ConnectedBool, int CalledTimes)
       {
          //Arrange
-         _uut._state = StationControl.LadeskabState.Available;
          _chargeControl.Connected = ConnectedBool;
-         //_uut._oldId = oldid;
 
          //Act
-         _reader.RfidRead(id);
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = id });
 
          //Assert
          _display.Received(CalledTimes).UnlockWithID();
@@ -116,12 +111,10 @@ namespace Test_Program_Charge_Locker
       public void RfidDetected_IfIdDetectedAndLadeSkabAvaliableChargeControlStartCharge_ChargeControlIsCalled(int id, bool ConnectedBool, int CalledTimes)
       {
          //Arrange
-         _uut._state = StationControl.LadeskabState.Available;
          _chargeControl.Connected = ConnectedBool;
-         //_uut._oldId = oldid;
 
          //Act
-         _reader.RfidRead(id);
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = id });
 
          //Assert
          _chargeControl.Received(CalledTimes).StartCharge();
@@ -135,12 +128,10 @@ namespace Test_Program_Charge_Locker
       public void RfidDetected_IfIdDetectedAndLadeSkabAvaliableSetLadeskabStateToLocked_Locked(int id, bool ConnectedBool, StationControl.LadeskabState ladeskabState)
       {
          //Arrange
-         _uut._state = StationControl.LadeskabState.Available;
          _chargeControl.Connected = ConnectedBool;
-         //_uut._oldId = oldid;
 
          //Act
-         _reader.RfidRead(id);
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = id });
 
          //Assert
          Assert.That(_uut._state,Is.EqualTo(ladeskabState));
@@ -154,15 +145,13 @@ namespace Test_Program_Charge_Locker
       public void RfidDetected_IfIdDetectedAndLadeSkabAvaliableButConnectedIsFalse_DisplayIsCalled(int id, bool ConnectedBool, int CalledTimes)
       {
          //Arrange
-         _uut._state = StationControl.LadeskabState.Available;
          _chargeControl.Connected = ConnectedBool;
-         //_uut._oldId = oldid;
 
          //Act
-         _reader.RfidRead(id);
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = id });
 
          //Assert
-        _display.Received(CalledTimes).NoConnection();
+         _display.Received(CalledTimes).NoConnection();
       }
 
 
@@ -174,12 +163,12 @@ namespace Test_Program_Charge_Locker
       public void RfidDetected_IfIdDetectedAndLadeSkabLockedDisplayRemovePhone_DisplayIsCalled(int id, int oldid, bool ConnectedBool, int CalledTimes)
       {
          //Arrange
-         _uut._state = StationControl.LadeskabState.Locked;
          _chargeControl.Connected = ConnectedBool;
-         _uut._oldId = oldid;
 
          //Act
-         _reader.RfidRead(id);
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = oldid });
+
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = id });
 
          //Assert
          _display.Received(CalledTimes).RemovePhone();
@@ -192,12 +181,12 @@ namespace Test_Program_Charge_Locker
       public void RfidDetected_IfIdDetectedAndLadeSkabLockedlogUnlockWriteToFile_LogIsCalled(int id, int oldid, bool ConnectedBool, int CalledTimes)
       {
          //Arrange
-         _uut._state = StationControl.LadeskabState.Locked;
          _chargeControl.Connected = ConnectedBool;
-         _uut._oldId = oldid;
-
+         
          //Act
-         _reader.RfidRead(id);
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = oldid });
+
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = id });
 
          //Assert
          _log.Received(CalledTimes).UnlockWriteToFile(id);
@@ -211,12 +200,12 @@ namespace Test_Program_Charge_Locker
       public void RfidDetected_IfIdDetectedAndLadeSkabLockedChargeControlStopCharge_ChargeControIsCalled(int id, int oldid, bool ConnectedBool, int CalledTimes)
       {
          //Arrange
-         _uut._state = StationControl.LadeskabState.Locked;
          _chargeControl.Connected = ConnectedBool;
-         _uut._oldId = oldid;
 
          //Act
-         _reader.RfidRead(id);
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = oldid });
+
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = id });
 
          //Assert
          _chargeControl.Received(CalledTimes).StopCharge();
@@ -229,15 +218,15 @@ namespace Test_Program_Charge_Locker
       public void RfidDetected_IfWrongIdDetectedAndLadeSkabLockedDisplayWrongID_DisplayIsCalled(int id, int oldid, bool ConnectedBool, int CalledTimes)
       {
          //Arrange
-         _uut._state = StationControl.LadeskabState.Locked;
          _chargeControl.Connected = ConnectedBool;
-         _uut._oldId = oldid;
 
          //Act
-         _reader.RfidRead(id);
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = oldid });
+
+         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = id });
 
          //Assert
-        _display.Received(CalledTimes).WrongID();
+         _display.Received(CalledTimes).WrongID();
       }
 
 

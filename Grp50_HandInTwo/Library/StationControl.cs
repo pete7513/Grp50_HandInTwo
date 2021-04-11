@@ -19,7 +19,6 @@ namespace Ladeskab
 
         // Her mangler flere member variable
         public LadeskabState _state;
-        //private IUsbCharger _charger;
         private IChargeControl _chargeControl;
         private ILog _log;
         private IReader _reader;
@@ -43,6 +42,8 @@ namespace Ladeskab
 
             _chargeControl = chargeControl;
             _log = log;
+
+            _state = LadeskabState.Available;
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
@@ -111,6 +112,7 @@ namespace Ladeskab
             {
                 case true:
                     _display.ConnectPhone();
+                    _state = LadeskabState.DoorOpen;
                     break;
                 case false:
                     _display.ReadRFID();
@@ -121,8 +123,7 @@ namespace Ladeskab
 
         private void _reader_IDLoadedEvent(object sender, RfidIDEventArgs e)
         {
-            //e.RFIDID = _oldId;
-            RfidDetected(e.RFIDID);
+           RfidDetected(e.RFIDID);
         }
     }
 

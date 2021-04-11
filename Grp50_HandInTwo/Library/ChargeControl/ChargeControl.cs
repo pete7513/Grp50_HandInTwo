@@ -24,7 +24,11 @@ namespace Ladeskab
          else if (e.Current > 5 && e.Current <= 500)
             _display.Charging();
          else if (e.Current > 500)
-         _display.ChargingError();
+         {
+            _display.ChargingError();
+            StopCharge();
+         }
+           
          
          _display.CurrentPowerValue(e);
       }

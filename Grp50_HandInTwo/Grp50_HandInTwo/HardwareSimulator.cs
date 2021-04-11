@@ -4,26 +4,27 @@ namespace Ladeskab
 {
    public class HardwareSimulator
    {
-      public IDoor door;
+   
+      public IDoor Door;
       public IDisplay Display;
       public IReader RFID;
-      public ILog log;
       public IUsbCharger USBcharger;
-      public IChargeControl chargeControl;
-      public StationControl stationControl;
+      public IChargeControl ChargeControl;
 
       private bool finish = false;
 
       public HardwareSimulator()
       {
-         door = new Door();
-         Display = new Display();
-         RFID = new rfidReader();
-         USBcharger = new UsbChargerSimulator();
-         chargeControl = new ChargeControl(Display, USBcharger);
-         log = new Log_File();
+        
+      }
 
-         stationControl = new StationControl(door, Display, RFID, chargeControl, log);
+      public HardwareSimulator(IDoor door, IDisplay display, IReader rfid, IUsbCharger usBcharger, IChargeControl chargeControl)
+      {
+         Door = door;
+         Display = display;
+         RFID = rfid;
+         USBcharger = usBcharger;
+         ChargeControl = chargeControl;
       }
 
       public void StartProgram()
@@ -52,13 +53,13 @@ namespace Ladeskab
 
             case 'O':
             case 'o':
-               door.OnDoorOpen();
+               Door.OnDoorOpen();
                DoorOpen();
                break;
 
             case 'C':
             case 'c':
-               door.OnDoorClose();
+               Door.OnDoorClose();
                DoorClosedWithPhoneConnected();
                break;
 
@@ -87,14 +88,14 @@ namespace Ladeskab
             case 'T':
             case 't':
                //USBcharger.Connected = true;
-               chargeControl.Connected = true;
+               ChargeControl.Connected = true;
                PhoneConnected();
                break;
 
             case 'F':
             case 'f':
                //USBcharger.Connected = false;
-               chargeControl.Connected = false;
+               ChargeControl.Connected = false;
                break;
          }
       }
@@ -109,7 +110,7 @@ namespace Ladeskab
          {
             case 'O':
             case 'o':
-               door.OnDoorOpen();
+               Door.OnDoorOpen();
                break;
 
             case 'R':
@@ -133,13 +134,13 @@ namespace Ladeskab
          {
             case 'C':
             case 'c':
-               door.OnDoorClose();
+               Door.OnDoorClose();
                break;
 
             case 'F':
             case 'f':
                USBcharger.Connected = false;
-               chargeControl.Connected = false;
+               ChargeControl.Connected = false;
                break;
          }
       }
