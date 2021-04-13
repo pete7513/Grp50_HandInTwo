@@ -42,7 +42,5 @@ namespace Test_Program_Charge_Locker
 
            Assert.That(output.ToString(), Is.EqualTo("Din telefon er ikke ordentlig tilsluttet. Prøv igen.\r\n"));
         }
-
-
-   }
+    }
 }

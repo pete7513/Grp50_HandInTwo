@@ -29,7 +29,6 @@ namespace Test_Program_Charge_Locker
          _reader = Substitute.For<IReader>();
          _display = Substitute.For<IDisplay>();
          _log = Substitute.For<ILog>();
-
          _chargeControl = Substitute.For<IChargeControl>();
 
          _uut = new StationControl(_door, _display, _reader, _chargeControl, _log);
@@ -119,24 +118,6 @@ namespace Test_Program_Charge_Locker
          //Assert
          _chargeControl.Received(CalledTimes).StartCharge();
       }
-
-
-      [TestCase(500, false, StationControl.LadeskabState.Available)]
-      [TestCase(123, true, StationControl.LadeskabState.Locked)]
-      [TestCase(646, true, StationControl.LadeskabState.Locked)]
-      [TestCase(100, true, StationControl.LadeskabState.Locked)]
-      public void RfidDetected_IfIdDetectedAndLadeSkabAvaliableSetLadeskabStateToLocked_Locked(int id, bool ConnectedBool, StationControl.LadeskabState ladeskabState)
-      {
-         //Arrange
-         _chargeControl.Connected = ConnectedBool;
-
-         //Act
-         _reader.IDLoadedEvent += Raise.EventWith(new RfidIDEventArgs() { RFIDID = id });
-
-         //Assert
-         Assert.That(_uut._state,Is.EqualTo(ladeskabState));
-      }
-
 
       [TestCase(500, false, 1)]
       [TestCase(123, false, 1)]
@@ -229,10 +210,29 @@ namespace Test_Program_Charge_Locker
          _display.Received(CalledTimes).WrongID();
       }
 
+      [TestCase(true)]
+      public void _door_doorStatusEventHandler_IfDoorOpenedCallsConnectPhone_DisplayIsCalled(bool DoorStatus)
+      {
+            //Arrange
 
+            //Act
+            _door.doorStatusEventHandler += Raise.EventWith((new CurrentDoorStatusEventArgs() {IsDoorOpen_Status = DoorStatus}));
 
+            //Assert
+            _display.Received().ConnectPhone();
+      }
 
+      [TestCase(false)]
+      public void _door_doorStatusEventHandler_IfDoorOpenedCallsConnectPhone_DisplayIsNotCalled(bool DoorStatus)
+      {
+          //Arrange
 
+          //Act
+          _door.doorStatusEventHandler += Raise.EventWith((new CurrentDoorStatusEventArgs() { IsDoorOpen_Status = DoorStatus }));
+
+          //Assert
+          _display.Received().ReadRFID();
+      }
    }
 }
 

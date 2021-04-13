@@ -102,7 +102,10 @@ namespace Test_Program_Charge_Locker
       [TestCase(480, 0)]
       [TestCase(470, 0)]
       [TestCase(500, 0)]
+      [TestCase(501, 1)]
+      [TestCase(510, 1)]
       [TestCase(678, 1)]
+
       public void ChargingERROR_WhenNewEvetIsFiredDisplayIsCalled_DisplayMethodChargingErrorIsCalled(double Current,
          int Called)
       {

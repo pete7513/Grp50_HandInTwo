@@ -18,11 +18,11 @@ namespace Ladeskab
         };
 
         // Her mangler flere member variable
-        public LadeskabState _state;
+        private LadeskabState _state;
         private IChargeControl _chargeControl;
         private ILog _log;
         private IReader _reader;
-        public int _oldId;
+        private int _oldId;
 
         //private string logFile = "logfile.txt"; // Navnet på systemets log-fil
         private IDoor _door;
@@ -34,12 +34,12 @@ namespace Ladeskab
         public StationControl(IDoor door, IDisplay display, IReader reader, IChargeControl chargeControl, ILog log)
         {
             _door = door;
-            _display = display;
             _door.doorStatusEventHandler += _door_doorStatusEventHandler;
 
             _reader = reader;
             _reader.IDLoadedEvent += _reader_IDLoadedEvent;
 
+            _display = display;
             _chargeControl = chargeControl;
             _log = log;
 
