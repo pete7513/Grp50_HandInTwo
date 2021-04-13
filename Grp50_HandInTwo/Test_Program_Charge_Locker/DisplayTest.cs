@@ -88,7 +88,7 @@ namespace Test_Program_Charge_Locker
         }
 
         [Test]
-        public void CurrentPowerValue()
+        public void CurrentPowerValueWithoutShowingMenu()
         {
             CurrentEventArgs eventArgs = new CurrentEventArgs() {Current = 8};
             
@@ -98,6 +98,19 @@ namespace Test_Program_Charge_Locker
             uut.CurrentPowerValue(eventArgs);
 
             Assert.That(output.ToString(), Is.EqualTo("Strøm niveauet er: " + eventArgs.Current+"\r\n"));
+        }
+
+        [Test]
+        public void CurrentPowerValueShowingMenu()
+        {
+            CurrentEventArgs eventArgs = new CurrentEventArgs() { Current = 10 };
+
+            var output = new StringWriter();
+            Console.SetOut(output);
+
+            uut.CurrentPowerValue(eventArgs);
+
+            Assert.That(output.ToString(), Is.EqualTo("Strøm niveauet er: " + eventArgs.Current + "\r\n"));
         }
 
         [Test]
