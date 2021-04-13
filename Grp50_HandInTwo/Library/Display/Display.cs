@@ -15,8 +15,7 @@ namespace Ladeskab
       public void ReadRFID()
       {
          Console.WriteLine("Indlæs RFID");
-         Console.WriteLine(" ----------------------------------- ");
-        }
+      }
 
       public void RemovePhone()
       {
@@ -30,7 +29,7 @@ namespace Ladeskab
 
       public void UnlockWithID()
       {
-         Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.>S");
+         Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
       }
 
       public void NoConnection()
@@ -59,8 +58,8 @@ namespace Ladeskab
       public void PhoneOptions()
       {
          Console.WriteLine(" [T]  Tilslut telefon   \n" +
-                           " [F]  Frakoble telefon");
-         Console.WriteLine(" ----------------------------------- ");
+                           " [F]  Frakoble telefo +\n" +
+                           "----------------------------------- ");
 
       }
 
@@ -68,8 +67,8 @@ namespace Ladeskab
       {
           Console.WriteLine(" [E]  Exit   \n" +
                             " [O]  Åben dør \n" +
-                            " [R] RFID læser");
-          Console.WriteLine(" ----------------------------------- ");
+                            " [R] RFID læser \n" + 
+                            " ----------------------------------- ");
         }
 
       public void ShowMenu()
